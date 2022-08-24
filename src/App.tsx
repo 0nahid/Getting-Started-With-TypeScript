@@ -36,9 +36,9 @@ export default function App() {
             newTodoRef.current.value = "";
         }
     }, [])
-    const removeFromList = useCallback((id: number) => {
-        dispatch({ type: "REMOVE", id })
-    }, [])
+    // const removeFromList = useCallback((id: number) => {
+    //     dispatch({ type: "REMOVE", id })
+    // }, [])
 
 
 
@@ -58,8 +58,11 @@ export default function App() {
                         <span style={{
                             color: 'red',
                             marginRight: '10px',
-                        }}> {todo.text}</span>
-                        <button onClick={() => removeFromList(todo.id)}>remove </button>
+                        }}> {todo.text.toUpperCase()} </span>
+                        {/* <button onClick={() => removeFromList(todo.id)}>remove </button> */}
+                        <button onClick={
+                            () => dispatch({ type: "REMOVE", id: todo.id })
+                        }>remove </button>
                     </div>
                 ))
             }
