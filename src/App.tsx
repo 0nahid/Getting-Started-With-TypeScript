@@ -7,6 +7,10 @@ interface Todos {
 }
 type ActionType = { type: "ADD", text: string } | { type: "REMOVE", id: number }
 
+// function removeSpaces(string: string) {
+//     return string.replace(/^\s+/, "").replace(/\s+$/, "").replace(/\s+/g, " ");
+// }
+const removeSpaces = (string: string) => string.replace(/^\s+/, "").replace(/\s+$/, "").replace(/\s+/g, " ");
 export default function App() {
     function reducer(state: Todos[], action: ActionType) {
         switch (action.type) {
@@ -31,10 +35,17 @@ export default function App() {
     //     dispatch({ type: "REMOVE", id })
     // }
     const addToList = useCallback(() => {
-        if (newTodoRef.current?.value) {
-            dispatch({ type: "ADD", text: newTodoRef.current.value })
+        const text = newTodoRef.current?.value
+        if (text) {
+            const newText = removeSpaces(text);
+            dispatch({ type: "ADD", text: newText })
             newTodoRef.current.value = "";
         }
+        
+        // if (newTodoRef.current?.value && newTodoRef.current?.value !== " ") {
+        //     dispatch({ type: "ADD", text: newTodoRef.current.value })
+        //     newTodoRef.current.value = "";
+        // }
     }, [])
     // const removeFromList = useCallback((id: number) => {
     //     dispatch({ type: "REMOVE", id })
