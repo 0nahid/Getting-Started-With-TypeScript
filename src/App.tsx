@@ -1,4 +1,4 @@
-import { useReducer, useRef } from "react";
+import { useCallback, useReducer, useRef } from "react";
 
 interface Todos {
     id: number,
@@ -20,16 +20,26 @@ export default function App() {
     }
     const [todos, dispatch] = useReducer(reducer, [])
     const newTodoRef = useRef<HTMLInputElement>(null);
-    const addToList = () => {
+    // const addToList = () => {
+    //     if (newTodoRef.current?.value) {
+    //         dispatch({ type: "ADD", text: newTodoRef.current.value })
+    //         newTodoRef.current.value = "";
+    //     }
+    // }
+    // const removeFromList = (id: number) => {
+    //     console.log(id);
+    //     dispatch({ type: "REMOVE", id })
+    // }
+    const addToList = useCallback(() => {
         if (newTodoRef.current?.value) {
             dispatch({ type: "ADD", text: newTodoRef.current.value })
             newTodoRef.current.value = "";
         }
-    }
-    const removeFromList = (id: number) => {
-        console.log(id);
+    }, [])
+    const removeFromList = useCallback((id: number) => {
         dispatch({ type: "REMOVE", id })
-    }
+    }, [])
+
 
 
 
